@@ -88,8 +88,10 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    // Teilaufgabe 1 //
+
     /**
-     * Eine Test-Klasse, die die Vorzeichenumkehr einer eingegebenen Zahl nach Betätigung der Vorzeichenumkehr-Taste
+     * Ein Test, der die Vorzeichenumkehr einer eingegebenen Zahl nach Betätigung der Vorzeichenumkehr-Taste
      * überprüft. Prüft ebenfalls eine erneute Transformation der gegebenen Zahl.
      */
     @Test
@@ -112,6 +114,52 @@ class CalculatorTest {
 
         assertEquals(expectedAfterSecondToggle, actualAfterSecondToggle);
     }
+// Teilaufgabe 2 //
 
+    /**
+     * Ein Test, der überprüft, ob durch mehrmaliges Betätigen der "=" Taste, nach vorangeganer Eingabe einer Rechnung,
+     * die letzte Rechenoperation wiederholt wird.
+     */
+
+    @Test
+    @DisplayName("should repeat the last operation correctly with multiple equal presses")
+    void repeatLastOperation() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+
+        String expected = "15"; // Erwartet 5 + 5 + 5 = 15 beim zweiten `=` drücken
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    /**
+     * Ein Test, der überprüft, ob nach einmaliger Division durch 0, in weiterführenden Rechenoperationen
+     * weiterhin die Ausgabe "Error" angezeigt wird.
+     */
+
+    @Test
+    @DisplayName("should display error after continuous division by zero")
+    void continuousDivisionByZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
+
+        String expected = "Error"; // Erwartung ist, dass "Error" angezeigt bleibt
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
