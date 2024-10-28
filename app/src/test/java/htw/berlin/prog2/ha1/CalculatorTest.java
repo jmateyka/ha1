@@ -88,7 +88,30 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Eine Test-Klasse, die die Vorzeichenumkehr einer eingegebenen Zahl nach Betätigung der Vorzeichenumkehr-Taste
+     * überprüft. Prüft ebenfalls eine erneute Transformation der gegebenen Zahl.
+     */
+    @Test
+    @DisplayName("should toggle the sign of a number between positive and negative")
+    void testToggleSign() {
+        Calculator calc = new Calculator();
 
-    //TODO hier weitere Tests erstellen
+        calc.pressDigitKey(3);
+        calc.pressNegativeKey();
+
+        String expectedAfterFirstToggle = "-3";
+        String actualAfterFirstToggle = calc.readScreen();
+
+        assertEquals(expectedAfterFirstToggle, actualAfterFirstToggle);
+
+        calc.pressNegativeKey();
+
+        String expectedAfterSecondToggle = "3";
+        String actualAfterSecondToggle = calc.readScreen();
+
+        assertEquals(expectedAfterSecondToggle, actualAfterSecondToggle);
+    }
+
 }
 
